@@ -6,14 +6,10 @@ include "../model/pdo.php";
 include "../model/danhmuc.php";
 include "../model/sanpham.php";
 include "../model/taikhoan.php";
-include "../model/donhang.php";
-include "../model/thongke.php";
-include "../model/binhluan.php";
+
 include "../global.php";
-$thong_ke_doanh_thu = thong_ke_doanh_thu();
-$thong_ke = thong_ke();
+
 $count_sp = count(loadAll_sanpham());
-$thong_ke_doanh_thu_thang = thong_ke_doanh_thu_thanh();
 $loadAll_sanpham_trang_thai_1 = loadAll_sanpham_trang_thai_1();
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
@@ -209,61 +205,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     }
                 }
                 include './taikhoan/update_tk.php';
-                break;
-            }
-
-            //quan ly binh luan
-        case "list_binhluan": {
-                $load_bl_sp_admin = load_bl_sp_admin();
-                include "./binhluan/list_binhluan.php";
-                break;
-            }
-        case "delete_bl": {
-                if (isset($_GET['idbl']) && ($_GET['idbl'] > 0)) {
-                    delete_binhluan($_GET['idbl']);
-                }
-                $load_bl_sp_admin = load_bl_sp_admin();
-                include "./binhluan/list_binhluan.php";
-                break;
-            }
-            //quan ly don hang
-        case "list_donhang": {
-                $list_donhang = loadall_donhang();
-                include "./donhang/list_donhang.php";
-                break;
-            }
-        case "update_donhang": {
-                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                    $loadone_dh = loadall_donhang($_GET['id']);
-                    $loadone_ctdh = loadone_chitietdonhang($_GET['id']);
-                    if (isset($_POST['submit']) && ($_POST['submit'])) {
-                        $name = $_POST['name'];
-                        $tel = $_POST['tel'];
-                        $address = $_POST['address'];
-                        if (isset($_POST['trangthai'])) {
-                            $trangthai = $_POST['trangthai'];
-                        } else {
-                            $trangthai = 4;
-                        }
-
-
-                        if (isset($_POST['ghichu']) && $_POST['ghichu']  != "") {
-                            $ghichu = $_POST['ghichu'];
-                        } else {
-                            $ghichu = "";
-                        }
-                        update_donhang($_GET['id'], $name, $tel, $address, $ghichu, $trangthai);
-                        header('location: index.php?act=list_donhang');
-                    }
-                }
-                include './donhang/update_donhang.php';
-                break;
-            }
-
-            //quan ly ct don hang
-        case "list_ctdh": {
-                $loadall_ctdh = loadall_chitietdonhang();
-                include "./donhang/list_ctdh.php";
                 break;
             }
         case 'dangxuat':

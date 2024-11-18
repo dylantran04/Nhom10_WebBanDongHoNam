@@ -3,9 +3,7 @@ $stars = $sale = 0;
 foreach ($loadone_sp as $value) {
     $sale = ($value['gia'] - $value['gia_new']) / $value['gia'] * 100;
 }
-foreach ($loadbl_sp as $value) {
-    $stars += $value['star'] / count($loadbl_sp);
-}
+
 ?>
 
 <h6 class="path">
@@ -82,60 +80,7 @@ foreach ($loadbl_sp as $value) {
         <div class="box-Evaluate">
             <div class="Evaluate">
                 <p id="bl">Phản hồi khách hàng</p>
-                <p>
-                    <span><?= number_format($stars, 1) ?></span>
-                    <small><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></small>
-                    <small>(<?= count($loadbl_sp) ?> đánh giá)</small>
-                </p>
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <script type="text/javascript">
-                    google.charts.load("current", {
-                        packages: ["corechart"]
-                    });
-                    google.charts.setOnLoadCallback(drawChart);
-
-                    function drawChart() {
-                        var data = google.visualization.arrayToDataTable([
-                            ["Element", "Density", {
-                                role: "style"
-                            }],
-                            ["1 sao", 8.94, "#b87333"],
-                            ["2 sao", 10.49, "silver"],
-                            ["3 sao", 19.3, "gold"],
-                            ["4 sao", 21.45, "color: #e5e4e2"],
-                            ["5 sao", 21.45, "color: #e5e4e2"],
-                        ]);
-
-                        var view = new google.visualization.DataView(data);
-                        view.setColumns([
-                            0,
-                            1,
-                            {
-                                calc: "stringify",
-                                sourceColumn: 1,
-                                type: "string",
-                                role: "annotation",
-                            },
-                            2,
-                        ]);
-
-                        var options = {
-                            title: "",
-                            width: 570,
-                            height: 290,
-                            bar: {
-                                groupWidth: "95%"
-                            },
-                            legend: {
-                                position: "none"
-                            },
-                        };
-                        var chart = new google.visualization.ColumnChart(
-                            document.getElementById("columnchart_values")
-                        );
-                        chart.draw(view, options);
-                    }
-                </script>
+                
                 <div id="columnchart_values" style="width: 450px; height: 200px"></div>
             </div>
 
@@ -143,31 +88,6 @@ foreach ($loadbl_sp as $value) {
         <div class="box-comment">
             <p id="bl">Bình luận</p>
             <div class="cmt">
-                <?php
-                foreach ($loadbl_sp as $value) {
-                    extract($value) ?>
-
-                    <div class="comment">
-                        <div class="img"><img src="image/User-avatar.svg.png" alt=""></div>
-                        <div class="content">
-                            <p>
-                                <?php
-                                for ($i = 1; $i <= 5; $i++) {
-                                    if ($i <= $star) {
-                                        echo '<i class="fa-solid fa-star"></i>';
-                                    } else {
-                                        echo '<i class="fa-regular fa-star"></i>';
-                                    }
-                                }
-                                ?>
-                            </p>
-                            <p><span><?= $user ?> </span> . <span><?= date('d/m/Y', strtotime($date)) ?></span></p>
-                            <p><?= $noidung ?>
-                            </p>
-                        </div>
-                    </div>
-                <?php }
-                ?>
             </div>
         </div>
     </div>
